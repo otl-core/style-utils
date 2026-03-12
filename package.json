@@ -1,6 +1,6 @@
 {
   "name": "@otl-core/style-utils",
-  "version": "1.1.23",
+  "version": "1.1.24",
   "type": "module",
   "description": "CSS rendering utilities for OTL CMS — color/border/shadow resolution, responsive CSS generation, animation keyframes",
   "main": "./dist/index.cjs",
@@ -37,7 +37,7 @@
     "url": "https://github.com/otl-core/style-utils.git"
   },
   "dependencies": {
-    "@otl-core/cms-types": "^1.1.23",
+    "@otl-core/cms-types": "^1.1.24",
     "clsx": "^2.1.1",
     "tailwind-merge": "^3.3.1"
   },
