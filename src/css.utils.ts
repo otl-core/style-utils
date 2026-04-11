@@ -215,6 +215,7 @@ export interface ResponsiveSpacingConfig {
   margin?: ResponsiveValue<string>;
   padding?: ResponsiveValue<string>;
   gap?: ResponsiveValue<string>;
+  height?: ResponsiveValue<string>;
   shadow?: ResponsiveValue<ShadowConfig>;
   fontSize?: ResponsiveValue<string>;
 }
@@ -240,6 +241,7 @@ export function generateResponsiveSpacingCSS(
   const normalizedMargin = normalizeResponsiveValue(config.margin);
   const normalizedPadding = normalizeResponsiveValue(config.padding);
   const normalizedGap = normalizeResponsiveValue(config.gap);
+  const normalizedHeight = normalizeResponsiveValue(config.height);
   const normalizedShadow = normalizeResponsiveValue(config.shadow);
   const normalizedFontSize = normalizeResponsiveValue(config.fontSize);
 
@@ -273,6 +275,14 @@ export function generateResponsiveSpacingCSS(
     md: normalizedGap.md,
     lg: normalizedGap.lg,
     xl: normalizedGap.xl,
+  };
+
+  const height = {
+    base: normalizedHeight.base,
+    sm: normalizedHeight.sm,
+    md: normalizedHeight.md,
+    lg: normalizedHeight.lg,
+    xl: normalizedHeight.xl,
   };
 
   const shadow = {
@@ -322,6 +332,10 @@ export function generateResponsiveSpacingCSS(
     baseStyles.push(`gap:${gap.base}`);
   }
 
+  if (height.base) {
+    baseStyles.push(`height:${height.base}`);
+  }
+
   if (shadow.base) {
     baseStyles.push(`box-shadow:${shadowToCSS(shadow.base)}`);
   }
@@ -341,10 +355,19 @@ export function generateResponsiveSpacingCSS(
     const marginBp = margin[bpKey];
     const paddingBp = padding[bpKey];
     const gapBp = gap[bpKey];
+    const heightBp = height[bpKey];
     const shadowBp = shadow[bpKey];
     const fontSizeBp = fontSize[bpKey];
 
-    if (borderBp || marginBp || paddingBp || gapBp || shadowBp || fontSizeBp) {
+    if (
+      borderBp ||
+      marginBp ||
+      paddingBp ||
+      gapBp ||
+      heightBp ||
+      shadowBp ||
+      fontSizeBp
+    ) {
       const styles: string[] = [];
 
       if (borderBp) {
@@ -369,6 +392,10 @@ export function generateResponsiveSpacingCSS(
 
       if (gapBp) {
         styles.push(`gap:${gapBp}`);
+      }
+
+      if (heightBp) {
+        styles.push(`height:${heightBp}`);
       }
 
       if (shadowBp) {
