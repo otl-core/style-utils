@@ -170,7 +170,14 @@ export function resolveBorderToCSS(
   } else if (borderConfig.width && borderConfig.style && borderConfig.color) {
     const color = resolveColorToCSS(borderConfig.color);
     if (color) {
-      result.border = `${borderConfig.width} ${borderConfig.style} ${color}`;
+      // Multi-value width (e.g. "1px 0 0 0") can't use border shorthand
+      if (borderConfig.width.trim().includes(" ")) {
+        result.borderWidth = borderConfig.width;
+        result.borderStyle = borderConfig.style;
+        result.borderColor = color;
+      } else {
+        result.border = `${borderConfig.width} ${borderConfig.style} ${color}`;
+      }
     }
   }
 
